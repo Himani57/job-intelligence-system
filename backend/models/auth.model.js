@@ -1,4 +1,3 @@
-import express from 'express';
 import mongoose from 'mongoose';
 
 const authSchema = new mongoose.Schema({
@@ -27,3 +26,7 @@ const authSchema = new mongoose.Schema({
 },{
     timestamps : true
 })
+
+const authModel = mongoose.model('User',authSchema);
+
+export default authModel;
