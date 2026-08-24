@@ -12,6 +12,8 @@
   "type": "module",
   "dependencies": {
     "@imagekit/nodejs": "^7.11.0",
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.2.9",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -19,6 +21,7 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.3",
-    "multer": "^2.2.0"
+    "multer": "^2.2.0",
+    "pdf-parse": "^2.4.5"
   }
 }

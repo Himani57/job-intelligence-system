@@ -6,7 +6,10 @@ const resumeSchema = new mongoose.Schema({
         ref : "User",
         required : true
     },
-    resume : {
+    resume : { // resumeUrl
+        type : String
+    },
+    extractedText : {
         type : String
     }
 },{
