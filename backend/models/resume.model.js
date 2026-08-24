@@ -6,17 +6,8 @@ const resumeSchema = new mongoose.Schema({
         ref : "User",
         required : true
     },
-    information :{
+    resumeUrl : {
         type : String
-    },
-    extractedText : {
-        type : String
-    },
-    skills :{
-        type: [String]
-    },
-    jobRole : {
-        type:String,
     }
 },{
     timestamps: true
