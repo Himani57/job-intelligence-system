@@ -1,6 +1,7 @@
 import resumeModel from '../models/resume.model.js';
 import uploadFile from '../services/imagekit.service.js';
 import extractResumeText from '../services/extractedText.service.js';
+import createEmbeddings from '../services/embedding.service.js';
 
 const takeResume = async (req, res) => {
   try {
@@ -12,8 +13,15 @@ const takeResume = async (req, res) => {
     }
 
     const uploadResult = await uploadFile(req.file);
+    if(uploadResult.url){
+      return res.status(401).json({
+        message : "File is already present"
+      })
+    }
 
     const extractedText = await extractResumeText(uploadResult.url);
+
+    const {chunks,vectors} = await createEmbeddings(extractedText);
 
     const resume = await resumeModel.create({
       user: req.user.id,
@@ -24,7 +32,9 @@ const takeResume = async (req, res) => {
     return res.status(201).json({
       message: "Resume uploaded successfully",
       resume,
-      extractedText
+      extractedText,
+      chunks,
+      vectors
     });
 
   } catch (error) {
