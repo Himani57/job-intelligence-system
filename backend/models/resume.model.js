@@ -11,6 +11,10 @@ const resumeSchema = new mongoose.Schema({
     },
     extractedText : {
         type : String
+    },
+    fileHash :{
+        type : String,
+        required : true
     }
 },{
     timestamps: true

@@ -17,6 +17,10 @@ const createEmbeddings = async (text) => {
 
     const vectors = await embeddings.embedDocuments(chunks);
 
+    console.log("Extracted text length:", text.length);
+    console.log("Chunks:", chunks.length);
+    console.log("Vectors:", vectors.length);
+
     return {
       chunks,
       vectors,
