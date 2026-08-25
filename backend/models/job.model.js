@@ -13,6 +13,14 @@ const jobSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    source: {
+      type: String,
+      default: "Adzuna",
+    },
+
+    externalJobId: {
+      type: String,
+    },
     salaryMin : {
         type : Number
     },
@@ -33,7 +41,7 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    
+
     requiredSkills: {
       type: [String],
       default: [],
