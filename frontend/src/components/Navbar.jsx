@@ -15,9 +15,15 @@ export default function Navbar() {
         <a href="#how" className="hover:text-[#EDEFF7] transition-colors">How it works</a>
         <a href="#features" className="hover:text-[#EDEFF7] transition-colors">Features</a>
       </nav>
+      <div className="gap-3 flex">
+        <button className="ji-mono text-xs px-4 py-2 rounded-full border border-[#232B42] text-[#EDEFF7] hover:border-[#5EEAD4] hover:text-[#5EEAD4] transition-colors">
+        Sign up
+      </button>
       <button className="ji-mono text-xs px-4 py-2 rounded-full border border-[#232B42] text-[#EDEFF7] hover:border-[#5EEAD4] hover:text-[#5EEAD4] transition-colors">
         Sign in
       </button>
+      </div>
+      
     </header>
   );
 }

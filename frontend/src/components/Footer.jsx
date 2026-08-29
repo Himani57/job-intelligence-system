@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer className="px-6 md:px-12 py-20 border-t border-white/[0.06] max-w-7xl mx-auto">
@@ -7,9 +9,9 @@ export default function Footer() {
           <h3 className=" text-2xl md:text-3xl font-bold mb-2 text-[#EDEFF7]">Stop guessing which jobs fit.</h3>
           <p className="text-[#8891A8] text-sm md:text-base">Upload once. Let the matching do the searching.</p>
         </div>
-        <button className=" bg-emerald-800 relative px-8 py-3.5 text-black font-bold rounded-full  font-semibold text-sm whitespace-nowrap">
+        <Link to='/signup' className=" bg-emerald-800 relative px-8 py-3.5 text-black font-bold rounded-full  font-semibold text-sm whitespace-nowrap">
           Get started
-        </button>
+        </Link>
       </div>
       <div className="mt-12 flex items-center justify-between">
         <div className="text-[11px] text-[#4A5268]">job.intelligence</div>
