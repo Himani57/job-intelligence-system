@@ -8,6 +8,8 @@ import {
   IoCheckmarkCircle,
 } from "react-icons/io5";
 import { useState } from "react";
+import {registerUser} from '../../services/auth.service.js'
+import { useNavigate } from "react-router-dom";
 
 const PERKS = [
   "Resume parsed in seconds",
@@ -19,9 +21,29 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(name,email,password);
+
+    try{
+      const response = await registerUser({
+        fullName:name,
+        email : email,
+        password : password
+      });
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      navigate('/');
+
+    }catch(error){
+      console.log(error.response?.data);
+    console.log(error.message);
+    }
+
   };
 
   return (
@@ -291,6 +313,7 @@ export default function SignUp() {
                       className="transition-transform duration-300 group-hover:translate-x-1"
                     />
                   </button>
+
 
                   <p className="text-center text-[10px] leading-relaxed text-[#4F586B]">
                     By creating an account, you agree to our{" "}

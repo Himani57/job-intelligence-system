@@ -6,6 +6,9 @@ import {
   IoCheckmarkCircle,
   IoArrowForward,
 } from "react-icons/io5";
+import { useState } from "react";
+import {loginUser} from '../../services/auth.service.js';
+import {useNavigate} from 'react-router-dom';
 
 const PERKS = [
   "Resume parsed in seconds",
@@ -14,6 +17,31 @@ const PERKS = [
 ];
 
 export default function Login() {
+
+  const[email,setEmail] = useState("");
+  const[password,setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const submitHandler = async (e)=>{
+    e.preventDefault();
+
+    try{
+      const response = await loginUser({
+        email : email,
+        password : password
+      })
+
+      setEmail("");
+      setPassword("");
+      navigate("/");
+
+
+    }catch(error){
+      console.log(error.response?.data);
+    console.log(error.message);
+    }
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#060811] text-[#F4F7FB]">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -79,9 +107,7 @@ export default function Login() {
       <main className="relative z-10 mx-auto flex min-h-[calc(100vh-100px)] max-w-10xl items-center px-6 pb-12 pt-6 md:px-10 lg:pt-0">
         <div className="grid w-full pl-4 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
           
-          {/* ================= LEFT SIDE ================= */}
           <section className="hidden lg:block">
-            {/* Badge */}
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.06] px-1 py-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5EEAD4] opacity-60" />
@@ -129,7 +155,6 @@ export default function Login() {
               ))}
             </div>
 
-            {/* AI Match Card */}
             <div className="relative mt-12 w-[430px] overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 backdrop-blur-xl">
               <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#5EEAD4]/10 blur-3xl" />
 
@@ -215,8 +240,7 @@ export default function Login() {
                 </div>
 
                 {/* Form */}
-                <form className="space-y-5">
-                  {/* EMAIL */}
+                <form onSubmit={submitHandler} className="space-y-5">
                   <div>
                     <label
                       htmlFor="email"
@@ -235,6 +259,10 @@ export default function Login() {
                         id="email"
                         name="email"
                         type="email"
+                        value={email}
+                        onChange={(e)=>{
+                          setEmail(e.target.value);
+                        }}
                         placeholder="you@example.com"
                         required
                         autoComplete="email"
@@ -271,6 +299,10 @@ export default function Login() {
                         id="password"
                         name="password"
                         type="password"
+                        value={password}
+                        onChange={(e)=>{
+                          setPassword(e.target.value);
+                        }}
                         placeholder="Enter your password"
                         required
                         autoComplete="current-password"
