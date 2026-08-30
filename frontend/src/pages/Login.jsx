@@ -33,7 +33,7 @@ export default function Login() {
 
       setEmail("");
       setPassword("");
-      navigate("/");
+      navigate("/resume");
 
 
     }catch(error){

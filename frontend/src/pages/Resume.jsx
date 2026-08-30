@@ -5,6 +5,7 @@ import {
   IoDocumentTextOutline,
   IoCheckmarkCircle,
 } from "react-icons/io5";
+import {analyzeResume} from '../../services/auth.service.js';
 
 const TRUST_POINTS = [
   "AI-powered skill extraction",
@@ -16,13 +17,17 @@ export default function UploadResume() {
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
+
   const [fileName, setFileName] = useState("No file selected");
+  const[file,setFile] = useState(null);
+  const[loading,setLoading] = useState(false);
 
   const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
+    const selectedFile = e.target.files?.[0];
 
-    if (file) {
-      setFileName(file.name);
+    if (selectedFile) {
+      setFile(selectedFile);
+      setFileName(selectedFile.name);
     }
   };
 
@@ -30,21 +35,34 @@ export default function UploadResume() {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const file = fileInputRef.current?.files?.[0];
-
-    if (!file) {
+    if(!file){
       alert("Please select a resume first!");
       return;
     }
-    navigate("/results");
+    try{
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("resume",file);
+
+      const response = await analyzeResume(formData);
+      console.log(response);
+
+      navigate('/');
+    }
+    catch(error){
+      console.log(error.response?.data);
+    console.log(error.message);
+    }finally{
+      setLoading(false);
+    }
   };
 
   return (
     <div className="w-full h-screen bg-[#080A12] text-[#EDEFF7] overflow-hidden flex flex-col">
-
       <div className="flex items-center p-4 justify-between w-full shrink-0">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#5EEAD4] to-[#34D8C4] flex items-center justify-center shadow-[0_0_20px_rgba(94,234,212,0.4)]">
@@ -60,7 +78,6 @@ export default function UploadResume() {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
-
         <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#5EEAD4] border border-[#5EEAD4]/30 bg-[#5EEAD4]/[0.06] rounded-full px-3 py-1 -translate-y-8">
           Last step
         </span>
@@ -77,12 +94,10 @@ export default function UploadResume() {
           onSubmit={handleSubmit}
           className="w-full max-w-lg bg-white/[0.02] border border-white/[0.07] rounded-3xl p-6 md:p-7 backdrop-blur-sm shadow-[0_0_60px_-15px_rgba(94,234,212,0.15)]"
         >
-
           <div
             onClick={handleUploadClick}
             className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-white/[0.12] hover:border-[#5EEAD4]/50 rounded-2xl py-8 md:py-10 px-6 cursor-pointer transition-colors"
           >
-
             <div className="w-11 h-11 rounded-full bg-[#5EEAD4]/10 border border-[#5EEAD4]/30 flex items-center justify-center">
               <IoCloudUploadOutline
                 className="text-[#5EEAD4]"
@@ -103,7 +118,6 @@ export default function UploadResume() {
               <span>{fileName}</span>
             </div>
 
-
             <input
               type="file"
               accept=".pdf"
@@ -115,9 +129,10 @@ export default function UploadResume() {
 
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-gradient-to-r from-[#5EEAD4] to-[#34D8C4] text-[#080A12] font-semibold text-sm mt-5 shadow-[0_8px_30px_-8px_rgba(94,234,212,0.5)] hover:-translate-y-0.5 transition-all"
+            disabled={loading}
+            className="w-full py-3 rounded-full bg-gradient-to-r from-[#5EEAD4] to-[#34D8C4] text-[#080A12] font-semibold text-sm mt-5 shadow-[0_8px_30px_-8px_rgba(94,234,212,0.5)] hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Analyze my resume
+            {loading ? "Analyzing..." : "Analyze my resume"}
           </button>
 
           <p className="text-[11px] text-[#4A5268] text-center mt-3">
