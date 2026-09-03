@@ -8,5 +8,6 @@ const api = axios.create({
 export const registerUser = async(data)=>await api.post('/register',data);
 export const loginUser = async (data)=>await api.post('/login',data);
 export const analyzeResume = async(data)=>await api.post('/addResume',data);
+export const getAllJobs = async ()=>await api.get('/jobs');
 
 export default api;

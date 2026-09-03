@@ -1,9 +1,10 @@
-import express from 'express';
-import jobController from '../controllers/job.controller.js'
+import { Router } from "express";
+import jobController from "../controllers/job.controller.js";
 
-const route = express.Router();
+const router = Router();
 
-route.get("/fetch-jobs",jobController.fetchJobs);
+router.post("/jobs/sync", jobController.syncJobs);
 
+router.get("/jobs", jobController.getAllJobs);
 
-export default route;
+export default router;

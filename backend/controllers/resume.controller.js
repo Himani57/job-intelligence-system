@@ -1,8 +1,8 @@
 import resumeModel from '../models/resume.model.js';
 import uploadFile from '../services/imagekit.service.js';
 import extractResumeText from '../services/extractedText.service.js';
-import createEmbeddings from '../services/embedding.service.js';
-import storeResumeVectors from '../services/pinecone.service.js';
+import {createEmbeddings} from '../services/embedding.service.js';
+import {storeResumeVectors} from '../services/pinecone.service.js';
 import crypto from 'crypto';
 
 const takeResume = async (req, res) => {

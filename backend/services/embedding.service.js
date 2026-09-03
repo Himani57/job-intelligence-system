@@ -30,4 +30,16 @@ const createEmbeddings = async (text) => {
   }
 };
 
-export default createEmbeddings;
+const createSingleEmbedding = async (text) => {
+  try {
+    const result = await embeddings.embedQuery(text);
+
+    return result;
+  } catch (error) {
+    throw new Error(`Single embedding failed: ${error.message}`);
+  }
+};
+
+export {createEmbeddings,
+  createSingleEmbedding
+};

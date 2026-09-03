@@ -10,7 +10,6 @@ const jobSchema = new mongoose.Schema(
 
     company: {
       type: String,
-      required: true,
       trim: true,
     },
     source: {
@@ -34,12 +33,10 @@ const jobSchema = new mongoose.Schema(
 
     jobUrl: {
       type: String,
-      required: true,
     },
 
     description: {
       type: String,
-      required: true,
     },
 
     requiredSkills: {
@@ -49,12 +46,7 @@ const jobSchema = new mongoose.Schema(
 
     experience: {
       type: String,
-    },
-
-    employmentType: {
-      type: String,
-      enum: ["Full-time", "Part-time", "Internship", "Contract"],
-    },
+    }
   },
   {
     timestamps: true,

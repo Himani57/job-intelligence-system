@@ -17,6 +17,7 @@ const storeResumeVectors = async ({
       id: `${resumeId}-${index}`,
       values: vectors[index],
       metadata: {
+        type : "resume",
         userId: userId.toString(),
         resumeId: resumeId.toString(),
         text: chunk,
@@ -36,4 +37,37 @@ const storeResumeVectors = async ({
 }
 };
 
-export default storeResumeVectors;
+const storeJobVectors = async ({
+  vector,
+  jobId,
+  title,
+  company,
+  description,
+}) => {
+  try {
+    const record = {
+      id: `job-${jobId}`,
+      values: vector,
+      metadata: {
+        type: "job",
+        jobId: jobId.toString(),
+        title,
+        company,
+        description,
+      },
+    };
+
+    await index.upsert({
+      records: [record],
+    });
+
+    return true;
+  } catch (error) {
+    throw new Error(`Job Pinecone upload failed: ${error.message}`);
+  }
+};
+
+export{
+  storeResumeVectors,
+  storeJobVectors
+};

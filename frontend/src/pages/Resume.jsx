@@ -63,7 +63,7 @@ export default function UploadResume() {
 
   return (
     <div className="w-full h-screen bg-[#080A12] text-[#EDEFF7] overflow-hidden flex flex-col">
-      <div className="flex items-center p-4 justify-between w-full shrink-0">
+      <div className="flex items-center p-5 justify-between w-full shrink-0">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#5EEAD4] to-[#34D8C4] flex items-center justify-center shadow-[0_0_20px_rgba(94,234,212,0.4)]">
             <span className="text-[11px] font-bold text-[#080A12]">
@@ -74,6 +74,10 @@ export default function UploadResume() {
           <span className="font-bold tracking-tight text-[16px]">
             Job Intelligence
           </span>
+        </Link>
+
+        <Link to='/jobs' >
+        <span className="border py-2 px-3 rounded-2xl">All Jobs</span>
         </Link>
       </div>
 
