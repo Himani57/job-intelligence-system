@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-return ( <header className=" z-50 w-full bg-amber-700 border-b border-white/5 bg-[#080A12]/80 backdrop-blur-xl"> <div className="flex items-center justify-between mx-auto px-6 sm:px-6 md:px-10 py-4">
+return (
+  <header className=" z-50 w-full border-b border-white/5 bg-[#080A12]/80 backdrop-blur-xl"> <div className="flex items-center justify-between mx-auto px-6 sm:px-6 md:px-10 py-4">
     <Link to="/" className="flex items-center gap-3 group shrink-0">
       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#5EEAD4] to-[#34D8C4] flex items-center justify-center shadow-[0_0_25px_rgba(94,234,212,0.25)] group-hover:scale-105 transition-all">
         <span className="text-xs font-bold text-[#080A12]">
@@ -19,7 +20,7 @@ return ( <header className=" z-50 w-full bg-amber-700 border-b border-white/5 bg
       </div>
     </Link>
 
-    <nav className="hidden lg:flex items-center gap-1">
+    <nav className="hidden lg:flex items-center gap-10">
       <Link
         to="/"
         className="px-3 py-2 text-sm text-[#8891A8] hover:text-[#5EEAD4] transition-colors"

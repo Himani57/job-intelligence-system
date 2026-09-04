@@ -11,7 +11,7 @@ export default function Hero() {
     <section className="relative px-6 md:px-12 pt-14 md:pt-20 pb-28 max-w-7xl mx-auto">
       <div className="absolute inset-0 -z-10 opacity-[0.12] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
 
-      <div className="grid md:grid-cols-2 gap-16 items-center">
+      <div className="grid md:grid-cols-2 gap-50 items-center">
         <div>
           <div className="text-xs text-[#5EEAD4] mb-6 flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#5EEAD4]/25 bg-[#5EEAD4]/[0.06] w-fit">
             <span className="w-1.5 h-1.5 rounded-full bg-[#5EEAD4] animate-pulse" />
