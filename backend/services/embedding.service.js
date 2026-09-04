@@ -1,4 +1,3 @@
-import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 
 const embeddings = new GoogleGenerativeAIEmbeddings({
@@ -6,40 +5,21 @@ const embeddings = new GoogleGenerativeAIEmbeddings({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-const createEmbeddings = async (text) => {
+const createSingleEmbedding = async (text) => {
   try {
-    const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 200,
-    });
+    if (!text || !text.trim()) {
+      throw new Error("Text is required for embedding");
+    }
 
-    const chunks = await splitter.splitText(text);
+    const vector = await embeddings.embedQuery(text);
 
-    const vectors = await embeddings.embedDocuments(chunks);
+    console.log("Text length:", text.length);
+    console.log("Vector dimension:", vector.length);
 
-    console.log("Extracted text length:", text.length);
-    console.log("Chunks:", chunks.length);
-    console.log("Vectors:", vectors.length);
-
-    return {
-      chunks,
-      vectors,
-    };
+    return vector;
   } catch (error) {
     throw new Error(`Embedding creation failed: ${error.message}`);
   }
 };
 
-const createSingleEmbedding = async (text) => {
-  try {
-    const result = await embeddings.embedQuery(text);
-
-    return result;
-  } catch (error) {
-    throw new Error(`Single embedding failed: ${error.message}`);
-  }
-};
-
-export {createEmbeddings,
-  createSingleEmbedding
-};
+export { createSingleEmbedding };

@@ -51,7 +51,11 @@ export default function UploadResume() {
       const response = await analyzeResume(formData);
       console.log(response);
 
-      navigate('/');
+     navigate("/recommended-jobs", {
+  state: {
+    recommendedJobs: response.data.recommendedJobs,
+  },
+});
     }
     catch(error){
       console.log(error.response?.data);

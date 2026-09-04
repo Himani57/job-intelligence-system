@@ -7,34 +7,31 @@ const pinecone = new Pinecone({
 const index = pinecone.index(process.env.PINECONE_INDEX);
 
 const storeResumeVectors = async ({
-  chunks,
-  vectors,
+  vector,
   userId,
   resumeId,
 }) => {
   try {
-    const records = chunks.map((chunk, index) => ({
-      id: `${resumeId}-${index}`,
-      values: vectors[index],
+    const record = {
+      id: `resume-${resumeId}`,
+      values: vector,
       metadata: {
-        type : "resume",
+        type: "resume",
         userId: userId.toString(),
         resumeId: resumeId.toString(),
-        text: chunk,
       },
-    }));
-
-    console.log("About to upsert, records length:", records.length);
-    await index.upsert({records});
-
-    return {
-      success: true,
-      count: records.length,
     };
+
+    await index.upsert({
+      records: [record],
+    });
+
+    return true;
   } catch (error) {
-  console.error("FULL ERROR:", error);
-  throw new Error(`Pinecone upload failed: ${error.message}`);
-}
+    throw new Error(
+      `Resume Pinecone upload failed: ${error.message}`
+    );
+  }
 };
 
 const storeJobVectors = async ({
@@ -67,7 +64,25 @@ const storeJobVectors = async ({
   }
 };
 
+const findMatchingJobs = async (resumeVector) => {
+  try {
+    const result = await index.query({
+      vector: resumeVector,
+      topK: 10,
+      includeMetadata: true,
+      filter: {
+        type: { $eq: "job" },
+      },
+    });
+
+    return result.matches;
+  } catch (error) {
+    throw new Error(`Job matching failed: ${error.message}`);
+  }
+};
+
 export{
   storeResumeVectors,
-  storeJobVectors
+  storeJobVectors,
+  findMatchingJobs
 };
