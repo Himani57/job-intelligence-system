@@ -1,4 +1,4 @@
-import ResumeScan from "./ResumeScan";
+import ResumeScan from "./jobs";
 
 const STATS = [
   { value: "2,400+", label: "listings indexed" },
