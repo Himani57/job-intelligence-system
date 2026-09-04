@@ -80,23 +80,39 @@ Description: ${newJob.description}
 
 // MongoDB se saari jobs frontend ko dena
 const getAllJobs = async (req, res) => {
-  try {
-    const jobs = await jobModel.find().sort({ createdAt: -1 });
+try {
+const page = Number(req.query.page) || 1;
+const limit = Number(req.query.limit) || 4;
 
-    return res.status(200).json({
-      message: "Jobs fetched successfully",
-      totalJobs: jobs.length,
-      jobs,
-    });
+const skip = (page - 1) * limit;
 
-  } catch (error) {
-    return res.status(500).json({
-      message: "Failed to fetch jobs",
-      error: error.message,
-    });
-  }
+const totalJobs = await jobModel.countDocuments();
+
+const jobs = await jobModel
+  .find()
+  .skip(skip)
+  .limit(limit);
+
+return res.status(200).json({
+  message: "Jobs fetched successfully",
+  jobs,
+  pagination: {
+    currentPage: page,
+    totalPages: Math.ceil(totalJobs / limit),
+    totalJobs,
+    limit,
+    hasNextPage: page < Math.ceil(totalJobs / limit),
+    hasPreviousPage: page > 1,
+  },
+});
+
+} catch (error) {
+return res.status(500).json({
+message: "Failed to fetch jobs",
+error: error.message,
+});
+}
 };
-
 
 export default {
   syncJobs,
