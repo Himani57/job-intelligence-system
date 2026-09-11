@@ -20,6 +20,7 @@ export default function Login() {
 
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
+  const[errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const submitHandler = async (e)=>{
@@ -37,8 +38,7 @@ export default function Login() {
 
 
     }catch(error){
-      console.log(error.response?.data);
-    console.log(error.message);
+      setErrorMessage(error.response?.data?.message || "Something went wrong");
     }
   }
 
@@ -196,16 +196,13 @@ export default function Login() {
             </p>
           </section>
 
-          {/* ================= LOGIN CARD ================= */}
           <section className="flex w-full justify-center">
             <div className="relative w-full max-w-[440px]">
               
-              {/* Card glow */}
               <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-[#5EEAD4]/10 via-transparent to-[#8B5CF6]/10 blur-xl" />
 
               <div className="relative rounded-[28px] border border-white/[0.09] bg-[#0B0E18]/80 p-7 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-9">
                 
-                {/* Mobile logo */}
                 <Link
                   to="/"
                   className="mb-9 flex w-fit items-center gap-2.5 lg:hidden"
@@ -224,7 +221,6 @@ export default function Login() {
                   </div>
                 </Link>
 
-                {/* Header */}
                 <div className="mb-8">
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#5EEAD4]/20 bg-[#5EEAD4]/10 text-[#5EEAD4]">
                     <IoSparklesOutline size={20} />
@@ -239,7 +235,6 @@ export default function Login() {
                   </p>
                 </div>
 
-                {/* Form */}
                 <form onSubmit={submitHandler} className="space-y-5">
                   <div>
                     <label
@@ -271,7 +266,6 @@ export default function Login() {
                     </div>
                   </div>
 
-                  {/* PASSWORD */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
                       <label
@@ -310,8 +304,10 @@ export default function Login() {
                       />
                     </div>
                   </div>
+                  {errorMessage && (
+                    <p className="mt-2 text-sm text-green-700">{errorMessage}</p>
+                  )}
 
-                  {/* BUTTON */}
                   <button
                     type="submit"
                     className="group mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#5EEAD4] to-[#34D8C4] py-4 text-sm font-bold text-[#06100F] shadow-[0_12px_35px_-10px_rgba(94,234,212,0.65)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_-10px_rgba(94,234,212,0.8)] active:translate-y-0"
@@ -325,7 +321,6 @@ export default function Login() {
                   </button>
                 </form>
 
-                {/* Divider */}
                 <div className="my-7 flex items-center gap-3">
                   <div className="h-px flex-1 bg-white/[0.06]" />
                   <span className="text-[9px] uppercase tracking-widest text-[#444C5E]">
@@ -334,7 +329,6 @@ export default function Login() {
                   <div className="h-px flex-1 bg-white/[0.06]" />
                 </div>
 
-                {/* Signup */}
                 <p className="text-center text-xs text-[#747E93]">
                   Don't have an account?{" "}
                   <Link
@@ -345,7 +339,6 @@ export default function Login() {
                   </Link>
                 </p>
 
-                {/* Security */}
                 <div className="mt-6 flex items-center justify-center gap-2 text-[9px] uppercase tracking-wider text-[#3F4759]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#5EEAD4]" />
                   Your data stays private
