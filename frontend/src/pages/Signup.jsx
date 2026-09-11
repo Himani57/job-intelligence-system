@@ -166,7 +166,6 @@ export default function SignUp() {
                 )}
 
                 <form onSubmit={submitHandler} className="space-y-5">
-                  {/* Name */}
                   <div>
                     <label
                       htmlFor="fullName"
@@ -184,6 +183,7 @@ export default function SignUp() {
                       <input
                         id="fullName"
                         value={name}
+                        required
                         onChange={(e) => setName(e.target.value)}
                         type="text"
                         placeholder="Enter your full name"
@@ -203,12 +203,11 @@ export default function SignUp() {
                     <div className="group flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3.5 py-2.5 transition-all duration-300 focus-within:border-[#5EEAD4]/50 focus-within:bg-[#5EEAD4]/[0.025] focus-within:shadow-[0_0_0_3px_rgba(94,234,212,0.07)]">
                       <IoMdMail
                         className="shrink-0 text-[#626B80] transition-colors group-focus-within:text-[#5EEAD4]"
-                        size={16}
-                      />
-
+                        size={16}/>
                       <input
                         id="email"
                         value={email}
+                        required
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         placeholder="you@example.com"
@@ -234,6 +233,7 @@ export default function SignUp() {
                       <input
                         id="password"
                         value={password}
+                        required
                         onChange={(e) => setPassword(e.target.value)}
                         type={showPassword ? "text" : "password"}
                         placeholder="At least 8 characters"
