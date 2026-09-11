@@ -47,7 +47,7 @@ export default function SignUp() {
       setEmail("");
       setPassword("");
 
-      navigate("/");
+      navigate("/resume");
     } catch (error) {
       setError(
         error.response?.data?.message ||

@@ -305,7 +305,7 @@ export default function Login() {
                     </div>
                   </div>
                   {errorMessage && (
-                    <p className="mt-2 text-sm text-green-700">{errorMessage}</p>
+                    <p className="mt-2 text-4xl text-green-700">{errorMessage}</p>
                   )}
 
                   <button
