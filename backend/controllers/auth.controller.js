@@ -33,12 +33,15 @@ const register = async(req,res)=>{
         id : newUser._id
     },process.env.JWT_SECRET_KEY)
 
-    res.cookie("token",token);
+    res.cookie("token",token,{
+        httpOnly: true,
+        sameSite: "none",
+        secure: true
+    });
 
 
     return res.status(201).json({
         message : "User created successfully",
-        token,
         user:{
             id : newUser._id,
             fullName : newUser.fullName,
